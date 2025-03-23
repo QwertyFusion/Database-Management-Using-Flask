@@ -1,16 +1,17 @@
 # Flask Auth using MySQL Database
 
-<p align="center"><strong>This project implements a User Authentication System using MySQL Database connectivity and Flask.</strong></p>
+<p><strong>This project implements a User Authentication System using MySQL Database connectivity and Flask.</strong></p>
 
 ---
 
 ## 🚀 Features
-
-- 🌐 Scrape websites, YouTube transcripts, or perform keyword searches.
-- 🤖 Uses **Gemini Flash 2.0** API for intelligent text processing.
-- 🔎 DuckDuckGo-powered web search for relevant content.
-- 🖥️ **Flask** backend with a **Next.js** frontend.
-- 🎨 Styled using **Tailwind CSS**.
+- Implemented user authentication/registration form using Flask and the database.  
+   - **New Users**: Register using the signup button.  
+   - **Existing Users**: Login with their credentials.  
+- Inside, users can update their personal details and reset their passwords.
+- Users can view their grades but cannot edit them personally.
+- Built a **responsive frontend** for user interactions using Bootstrap.
+- Implemented backend flask connectivity with MySQL database.
 
 ---
 
@@ -51,9 +52,41 @@ pip install -r requirements.txt
 ### 3️⃣ Database Setup (MySQL and MySQL Workbench)
 
 #### Install MySQL Server and MySQL Workbench from official websites
+```yaml
+MySQL Server Download Link: https://dev.mysql.com/downloads/installer/
+MySQL Workbench Download Link: https://dev.mysql.com/downloads/workbench/
+```
 
+#### In MySQL Workbench, create `user_management` database and use it
+```sql
+CREATE DATABASE user_management;
+USE user_management;
+```
 
+#### In MySQL Workbench, create `user` table and `grades` table and use it 
+```sql
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+CREATE TABLE grades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    subject VARCHAR(100) NOT NULL,
+    grade DECIMAL(5, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
+
+#### In MySQL Workbench, insert into `grades` table after creating account using frontend. Do this before logging in.
+```sql
+INSERT INTO grades (user_id, subject, grade) VALUES (1, '<SUBJECT_NAME>', <GRADE>);
+```
 
 ### 4️⃣ Environment Variables
 
@@ -69,7 +102,7 @@ MYSQL_DB=user_management # Your Database name
 ### 5️⃣ Run the Project
 
 #### Start the Flask Backend
-```sh
+```bash
 python app.py  # Ensure the virtual environment is activated
 ```
 
@@ -81,14 +114,12 @@ Now, open your browser and go to **http://127.0.0.1:5000** to start using Flask 
 
 <ol>
   <li>Visual Studio Code</li>
-  <li>Next.js</li>
-  <li>TypeScript</li>
-  <li>Tailwind CSS</li>
+  <li>HTML</li>
+  <li>CSS</li>
+  <li>Bootstrap</li>
   <li>Flask</li>
-  <li>BeautifulSoup (Web Scraping)</li>
-  <li>DuckDuckGo Search API</li>
-  <li>YouTube Transcript API</li>
-  <li>Gemini API (AI Processing)</li>
+  <li>MySQL</li>
+  <li>MySQL Workbench</li>
   <li>Git & GitHub (Version Control)</li>
 </ol>
 
@@ -100,29 +131,23 @@ Now, open your browser and go to **http://127.0.0.1:5000** to start using Flask 
 <a href="https://code.visualstudio.com" target="_blank" rel="noreferrer">
   <img src="https://www.vectorlogo.zone/logos/visualstudio_code/visualstudio_code-icon.svg" alt="Visual Studio Code" width="40" height="40"/>
 </a>&emsp;
-<a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-  <img src="https://marcbruederlin.gallerycdn.vsassets.io/extensions/marcbruederlin/next-icons/0.1.0/1723747598319/Microsoft.VisualStudio.Services.Icons.Default" alt="Next.js" width="40" height="40"/>
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noreferrer">
+  <img src="https://cdn.iconscout.com/icon/free/png-256/free-html-5-logo-icon-download-in-svg-png-gif-file-formats--programming-langugae-language-pack-logos-icons-1175208.png?f=webp&w=256" alt="HTML" width="40" height="40"/>
 </a>&emsp;
-<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript" width="40" height="40"/>
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noreferrer">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/2048px-CSS3_logo.svg.png" alt="CSS" width="40" height="40"/>
 </a>&emsp;
-<a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
-  <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="Tailwind CSS" width="40" height="40"/>
+<a href="https://getbootstrap.com" target="_blank" rel="noreferrer">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1280px-Bootstrap_logo.svg.png" alt="Bootstrap" width="40"/>
 </a>&emsp;
 <a href="https://flask.palletsprojects.com/" target="_blank" rel="noreferrer">
   <img src="https://play-lh.googleusercontent.com/ekpyJiZppMBBxCR5hva9Zz1pr3MYlFP-vWTYR3eIU7HOMAmg3jCJengHJ1GFgFMyyYc" alt="Flask" width="40" height="40"/>
 </a>&emsp;
-<a href="https://www.crummy.com/software/BeautifulSoup/" target="_blank" rel="noreferrer">
-  <img src="https://cdn-icons-png.flaticon.com/512/1348/1348781.png" alt="BeautifulSoup" width="40" height="40"/>
+<a href="https://dev.mysql.com/downloads/installer/" target="_blank" rel="noreferrer">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Antu_mysql-workbench.svg/800px-Antu_mysql-workbench.svg.png" alt="MySQL" width="40" height="40"/>
 </a>&emsp;
-<a href="https://duckduckgo.com/" target="_blank" rel="noreferrer">
-  <img src="https://cdn-llcdl.nitrocdn.com/QAgOfWkPLJQEZBsznqhKTXqQaWtXlbkU/assets/images/optimized/rev-f21cbe9/direction.com/wp-content/uploads/2023/05/duckduckgo.png" alt="DuckDuckGo" width="40" height="40"/>
-</a>&emsp;
-<a href="https://developers.google.com/youtube/v3/docs/captions" target="_blank" rel="noreferrer">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube Transcript API" width="40" />
-</a>&emsp;
-<a href="https://ai.google.dev/" target="_blank" rel="noreferrer">
-  <img src="https://pipedream.com/s.v0/app_ArhjGP/logo/orig" alt="Gemini API" width="40" height="40"/>
+<a href="https://dev.mysql.com/downloads/workbench/" target="_blank" rel="noreferrer">
+  <img src="https://img.utdstc.com/icon/f6f/11c/f6f11c75fda63dd454fa5db9610a77cfd6752be4db11010f2e4252551a4abccd:200" alt="MySQL Workbench" width="40" height="40"/>
 </a>&emsp;
 <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
   <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="Git" width="40" height="40"/>
